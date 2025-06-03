@@ -344,8 +344,8 @@ class DskWindow(Gtk.ApplicationWindow):
                                 MOD_DCTLINK: ufd.get_dct_link(),
                                 MOD_LINK_ATTR: f"{ufd.get_link_attributes()}",
                         })
-                except:
-                    print(f"WARNING: Dumpfile decoding failed, was it really a dump? 9TKFILE{tape_id:02}")
+                except Exception as ex:
+                    print(f"WARNING: Dumpfile decoding failed, was it really a dump? 9TKFILE {tape_id}: {ex}")
         pass
 
     def populate_store_with_dsk(self, store, dsk, directory=6, node=None):
