@@ -58,9 +58,7 @@ class Dumpfile:
                         raise Exception("Unexpected length!")
 
                     current_data += self.raw_bytes[offset:offset+length]
-                    # FIXME: Is this math right?
-                    current_ufd.set_logical_block_count(len(current_data) // 512)
-                    current_ufd.set_bytes_in_last_block(len(current_data) % 512)
+                    current_ufd.set_total_byte_count(len(current_data))
                     offset += length
                 case 0xFD: # ERROR
                     raise Exception("Unsupported block type: ERROR")
