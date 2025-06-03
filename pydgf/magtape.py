@@ -56,14 +56,16 @@ class Magtape:
             fileno1 = int.from_bytes(record[record_length-4:record_length-2], byteorder='big')
             fileno2 = int.from_bytes(record[record_length-2:record_length], byteorder='big')
             if fileno1 != fileno2:
-                raise Exception("File number does not match!")
+                print(f"WARNING: File number does not match! ({fileno1} != {fileno2})")
+                #raise Exception("File number does not match!")
             
             if fileno1 > last_fileno + 1 or fileno1 < last_fileno:
-                raise Exception("File number sequence is unexpected")
+                print(f"WARNING: File number sequence is unexpected (last={last_fileno} current={fileno1})")
             last_fileno = fileno1
 
             if fileno1 > 99:
-                raise Exception("File number is larger then supported by RDOS")
+                # raise Exception("File number is larger then supported by RDOS")
+                print(f"WARNING: File number is larger then supported by RDOS ({fileno1})")
 
             if needs_warning and not did_warning:
                 print("WARNING: If any data follows it may have been erased from the tape!")
